@@ -3,13 +3,19 @@ package com.rutger.uijtendaal.ikpmd.movies;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.rutger.uijtendaal.ikpmd.R;
 
-public class MoviesActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class MoviesActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    MoviesViewModel mMoviesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
