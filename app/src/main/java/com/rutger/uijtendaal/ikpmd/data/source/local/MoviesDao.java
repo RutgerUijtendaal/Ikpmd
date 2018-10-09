@@ -1,6 +1,7 @@
 package com.rutger.uijtendaal.ikpmd.data.source.local;
 
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -24,7 +25,7 @@ public interface MoviesDao {
      * @return all movies
      */
     @Query("SELECT * FROM movies")
-    List<Movie> getMovies();
+    LiveData<List<Movie>> getMovies();
 
     /**
      *
@@ -34,7 +35,7 @@ public interface MoviesDao {
      * @return the movie with the movieId
      */
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    Movie getMovieById(String movieId);
+    LiveData<Movie> getMovieById(String movieId);
 
     /**
      * Insert a movie into the database. If it already exists ignore

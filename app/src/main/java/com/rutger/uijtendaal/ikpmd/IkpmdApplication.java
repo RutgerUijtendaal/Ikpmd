@@ -1,5 +1,6 @@
 package com.rutger.uijtendaal.ikpmd;
 
+import com.rutger.uijtendaal.ikpmd.di.AppComponent;
 import com.rutger.uijtendaal.ikpmd.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
@@ -14,6 +15,9 @@ public class IkpmdApplication extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerAppComponent.builder().application(this).build();
+        AppComponent appComponent =  DaggerAppComponent.builder().application(this).build();
+        appComponent.inject(this);
+
+        return appComponent;
     }
 }

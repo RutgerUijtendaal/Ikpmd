@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewmodel"
+            type="com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.addmovie.AddMovieFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <EditText
+                android:id="@+id/add_movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title_hint"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:text="@={viewmodel.title}"
+                android:paddingBottom="@dimen/activity_vertical_margin"/>
+
+            <RatingBar
+                android:id="@+id/add_movie_ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rate_me"
+                android:numStars="5"
+                android:rating="@={viewmodel.rating}"
+                android:stepSize="1.0" />
+
+            <EditText
+                android:id="@+id/add_movie_thoughts"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:gravity="top"
+                android:hint="@string/thoughts_hint"
+                android:text="@={viewmodel.thoughts}"
+                />
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

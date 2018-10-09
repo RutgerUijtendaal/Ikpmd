@@ -17,6 +17,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {MoviesRepositoryModule.class,
         ApplicationModule.class,
         ActivityBindingModule.class,
+        ViewModelModule.class,
         AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<IkpmdApplication> {
 

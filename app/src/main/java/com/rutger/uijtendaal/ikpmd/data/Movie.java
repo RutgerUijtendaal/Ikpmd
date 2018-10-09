@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 //import com.google.common.base.Objects;
 //import com.google.common.base.Strings;
@@ -28,32 +29,37 @@ public final class Movie {
     private final String mTitle;
 
     @NonNull
-    @ColumnInfo(name = "runtime")
-    private final int mRuntime;
+    @ColumnInfo(name = "rating")
+    private final int mRating;
+
+    @Nullable
+    @ColumnInfo(name = "thoughts")
+    private final String mThoughts;
 
     /**
      *
      * Constructor to create a new movie
      *
-     * @param title         title of the movie
-     * @param runtime       length of the movie
      */
     @Ignore
-    public Movie(@NonNull String title, @NonNull int runtime) {
-        this(UUID.randomUUID().toString(), title, runtime);
+    public Movie(@NonNull String title, @NonNull int rating, @Nullable String thoughts) {
+        this(UUID.randomUUID().toString(), title, rating, thoughts);
     }
 
     /**
      *
      * Constructor to create a new movie
      *
+     * @param id               id of the movie
      * @param title         title of the movie
-     * @param runtime       length of the movie
+     * @param rating       length of the movie
+     * @param thoughts   thoughts of the movie
      */
-    public Movie(@NonNull String id, @NonNull String title, @NonNull int runtime) {
+    public Movie(@NonNull String id, @NonNull String title, @NonNull int rating, @Nullable String thoughts) {
         mId = id;
         mTitle = title;
-        mRuntime = runtime;
+        mRating = rating;
+        mThoughts = thoughts;
     }
 
     @NonNull
@@ -63,5 +69,11 @@ public final class Movie {
     public String getTitle() { return mTitle; }
 
     @NonNull
-    public int getRuntime() { return mRuntime; }
+    public int getRating() { return mRating; }
+
+    @Nullable
+    public String getThoughts() {
+        return mThoughts;
+    }
+
 }

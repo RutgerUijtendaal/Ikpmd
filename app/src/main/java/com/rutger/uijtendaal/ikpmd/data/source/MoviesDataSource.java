@@ -1,10 +1,14 @@
 package com.rutger.uijtendaal.ikpmd.data.source;
 
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.rutger.uijtendaal.ikpmd.data.Movie;
 
 import java.util.List;
+
 
 /**
  *
@@ -13,28 +17,14 @@ import java.util.List;
  */
 public interface MoviesDataSource {
 
-    interface LoadMoviesCallback {
+    LiveData<List<Movie>> getMovies();
 
-        void onMoviesLoaded(List<Movie> movies);
-
-        void onDataNotAvailable();
-    }
-
-    interface GetMovieCallback {
-
-        void onMovieLoaded(Movie movie);
-
-        void onDataNotAvailable();
-    }
-
-    void getMovies(@NonNull LoadMoviesCallback callback);
-
-    void getMovie(@NonNull String movieId, @NonNull GetMovieCallback callback);
+    LiveData<Movie> getMovie(@NonNull String movieId);
 
     void saveMovie(@NonNull Movie movie);
 
     void deleteMovie(@NonNull String movieId);
 
-
+    void deleteMovies();
 
 }

@@ -12,7 +12,6 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -25,13 +24,10 @@ abstract public class MoviesRepositoryModule {
     private static final int THREAD_COUNT = 3;
 
     @Singleton
-    @Binds
-    abstract MoviesDataSource getMoviesDataSource(MoviesDataSource dataSource);
-
-    @Singleton
     @Provides
     static MoviesDatabase getMoviesDatabase(Application context) {
         return Room.databaseBuilder(context.getApplicationContext(), MoviesDatabase.class, "Movies.db")
+                .fallbackToDestructiveMigration()
                 .build();
     }
 
@@ -41,9 +37,10 @@ abstract public class MoviesRepositoryModule {
         return db.moviesDao();
     }
 
+
     @Singleton
     @Provides
-    static AppExecutors provideAppExecutors() {
+    static AppExecutors getAppExecutors() {
         return new AppExecutors(new DiskIOThreadExecutor(),
                 Executors.newFixedThreadPool(THREAD_COUNT),
                 new AppExecutors.MainThreadExecutor());

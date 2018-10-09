@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rutger.uijtendaal.ikpmd">
-
     <application
         android:name=".IkpmdApplication"
         android:allowBackup="true"
@@ -11,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".movies.MoviesActivity"
+            android:name=".ui.movies.MoviesActivity"
             android:label="@string/title_activity_movies"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,6 +18,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.addmovie.AddMovieActivity"
+            android:label="@string/title_activity_add_movie"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.movies.MoviesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.movies.MoviesActivity" />
         </activity>
     </application>
 

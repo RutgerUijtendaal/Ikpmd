@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Ikpmd</string>
-    <string name="title_activity_movies">MoviesActivity</string>
+    <string name="title_activity_movies">Your Movies</string>
+
+    <string name="title_activity_add_movie">Add Movie</string>
+    <string name="title_hint">Title</string>
+    <string name="thoughts_hint">Didn\'t like the ending.</string>
+    <string name="text_ab_done">Done.</string>
+    <string name="empty_movie_title">Movie Title can\'t be empty</string>
+
+
+
 </resources>

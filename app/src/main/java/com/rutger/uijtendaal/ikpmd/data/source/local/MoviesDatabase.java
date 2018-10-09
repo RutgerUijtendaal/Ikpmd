@@ -8,7 +8,7 @@ import com.rutger.uijtendaal.ikpmd.data.Movie;
 /**
  * Room Database containing Movies Table
  */
-@Database(entities = {Movie.class}, version = 1)
+@Database(entities = {Movie.class}, version = 3, exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
 
     public abstract MoviesDao moviesDao();
