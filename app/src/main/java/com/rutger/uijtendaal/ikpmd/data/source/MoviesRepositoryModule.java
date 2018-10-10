@@ -3,6 +3,7 @@ package com.rutger.uijtendaal.ikpmd.data.source;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
+import com.rutger.uijtendaal.ikpmd.data.source.Remote.MoviesFb;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDao;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDatabase;
 import com.rutger.uijtendaal.ikpmd.util.AppExecutors;
@@ -16,7 +17,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Used by Dagger to inject the required arguments into the {@link MoviesRepository}.
+ * Used by Dagger to inject the required arguments into the MoviesRepository
  */
 @Module
 abstract public class MoviesRepositoryModule {
@@ -29,6 +30,13 @@ abstract public class MoviesRepositoryModule {
         return Room.databaseBuilder(context.getApplicationContext(), MoviesDatabase.class, "Movies.db")
                 .fallbackToDestructiveMigration()
                 .build();
+    }
+
+    @Singleton
+    @Provides
+    static MoviesFb getMoviesFb(MoviesDao moviesDao, AppExecutors appExecutors) {
+        MoviesFb moviesFb = new MoviesFb(moviesDao, appExecutors);
+        return moviesFb;
     }
 
     @Singleton

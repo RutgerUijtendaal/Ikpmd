@@ -1,10 +1,8 @@
 package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
-import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
-import android.util.Log;
 
 import com.google.common.base.Strings;
 import com.rutger.uijtendaal.ikpmd.R;
@@ -19,13 +17,13 @@ public class AddMovieViewModel extends ViewModel {
 
     private static final String TAG = MoviesViewModel.class.getName();
 
-    public final ObservableField<String> title = new ObservableField<>();
+    public final MutableLiveData<String> title = new MutableLiveData<>();
 
-    public final ObservableInt rating = new ObservableInt();
+    public final MutableLiveData<Float> rating = new MutableLiveData();
 
-    public final ObservableField<String> thoughts = new ObservableField<>();
+    public final MutableLiveData<String> thoughts = new MutableLiveData<>();
 
-    public final ObservableField<String> snackbarText = new ObservableField<>();
+    public final MutableLiveData<String> snackbarText = new MutableLiveData<>();
 
     private final Context mContext;
 
@@ -33,23 +31,20 @@ public class AddMovieViewModel extends ViewModel {
 
     private AddMovieNavigator mAddMovieNavigator;
 
-    public void onActivityCreated(AddMovieNavigator navigator) {
-        mAddMovieNavigator = navigator;
-    }
-
     @Inject
     public AddMovieViewModel(Context context, MoviesRepository moviesRepository) {
         mMoviesRepository = moviesRepository;
         mContext = context;
-        rating.set(3);
+        rating.setValue(3f);
     }
 
-    // Called when clicking the actionbar button
+    public void setNavigator(AddMovieNavigator navigator) { mAddMovieNavigator = navigator; }
+
     public void createMovie() {
-        if(Strings.isNullOrEmpty(title.get())) {
-            snackbarText.set(mContext.getString(R.string.empty_movie_title));
+        if(Strings.isNullOrEmpty(title.getValue())) {
+            snackbarText.postValue(mContext.getString(R.string.empty_movie_title));
         } else {
-            Movie movie = new Movie(title.get(), rating.get(), thoughts.get());
+            Movie movie = new Movie(title.getValue(), rating.getValue(), thoughts.getValue());
             mMoviesRepository.saveMovie(movie);
             navigateOnMovieSaved();
         }

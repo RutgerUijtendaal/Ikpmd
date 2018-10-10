@@ -1,25 +1,17 @@
 package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.databinding.AddMovieFragBinding;
-import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
-
-import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 
@@ -27,9 +19,6 @@ import dagger.android.support.DaggerFragment;
 
 
 public class  AddMovieFragment extends DaggerFragment {
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
 
     private AddMovieFragBinding mAddMovieFragBinding;
 
@@ -46,12 +35,6 @@ public class  AddMovieFragment extends DaggerFragment {
         super.onCreateOptionsMenu(menu,inflater);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAddMovieViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddMovieViewModel.class);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,10 +48,7 @@ public class  AddMovieFragment extends DaggerFragment {
         // Set action bar options
         setHasOptionsMenu(true);
 
-
-
         return mAddMovieFragBinding.getRoot();
-
     }
 
     @Override
@@ -80,4 +60,9 @@ public class  AddMovieFragment extends DaggerFragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void setViewModel(AddMovieViewModel addMovieViewModel) {
+        this.mAddMovieViewModel = addMovieViewModel;
+    }
+
 }

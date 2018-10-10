@@ -42,7 +42,7 @@ public interface MoviesDao {
      *
      * @param movie the movie to insert
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(Movie movie);
 
     /**
@@ -68,4 +68,8 @@ public interface MoviesDao {
      */
     @Query("DELETE FROM movies")
     void deleteMovies();
+
+    /**
+     *
+     */
 }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieViewModel;
+import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MovieItemViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
 import com.rutger.uijtendaal.ikpmd.viewmodel.IkpmdViewModelFactory;
 
@@ -22,6 +23,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddMovieViewModel.class)
     abstract ViewModel bindAddMovieViewModel(AddMovieViewModel addMovieViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieItemViewModel.class)
+    abstract ViewModel bindMovieItemViewModel(MovieItemViewModel movieItemViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(IkpmdViewModelFactory factory);

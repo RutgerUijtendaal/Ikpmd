@@ -3,6 +3,7 @@ package com.rutger.uijtendaal.ikpmd.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,24 +31,25 @@ public final class Movie {
 
     @NonNull
     @ColumnInfo(name = "rating")
-    private final int mRating;
+    private final float mRating;
 
     @Nullable
     @ColumnInfo(name = "thoughts")
     private final String mThoughts;
 
     /**
+     * Constructor to create a movie with a new UUID.
      *
-     * Constructor to create a new movie
-     *
+     * @param title         title of the movie
+     * @param rating       length of the movie
+     * @param thoughts   thoughts of the movie
      */
     @Ignore
-    public Movie(@NonNull String title, @NonNull int rating, @Nullable String thoughts) {
+    public Movie(@NonNull String title, @NonNull float rating, @Nullable String thoughts) {
         this(UUID.randomUUID().toString(), title, rating, thoughts);
     }
 
     /**
-     *
      * Constructor to create a new movie
      *
      * @param id               id of the movie
@@ -55,7 +57,7 @@ public final class Movie {
      * @param rating       length of the movie
      * @param thoughts   thoughts of the movie
      */
-    public Movie(@NonNull String id, @NonNull String title, @NonNull int rating, @Nullable String thoughts) {
+    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String thoughts) {
         mId = id;
         mTitle = title;
         mRating = rating;
@@ -69,7 +71,7 @@ public final class Movie {
     public String getTitle() { return mTitle; }
 
     @NonNull
-    public int getRating() { return mRating; }
+    public float getRating() { return mRating; }
 
     @Nullable
     public String getThoughts() {

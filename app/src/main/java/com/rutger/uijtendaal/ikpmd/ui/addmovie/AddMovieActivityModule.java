@@ -6,6 +6,10 @@ import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+/**
+ * Dagger Module to bind the
+ *
+ */
 @Module
 public abstract class AddMovieActivityModule {
 

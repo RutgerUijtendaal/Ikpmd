@@ -1,28 +1,29 @@
 package com.rutger.uijtendaal.ikpmd.ui.movies;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
+import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
-import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieActivity;
+import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MoviesAdapter;
 
 import java.util.ArrayList;
 
@@ -31,14 +32,12 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerFragment;
 
 
-public class MoviesFragment extends DaggerFragment {
+public class MoviesFragment extends DaggerFragment implements SearchView.OnQueryTextListener {
 
     private static final String TAG = MoviesFragment.class.getName();
 
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-
     private MoviesViewModel mMoviesViewModel;
+
     private MoviesAdapter mMoviesAdapter;
 
     @Inject
@@ -46,12 +45,12 @@ public class MoviesFragment extends DaggerFragment {
         // Requires empty public constructor
     }
 
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mMoviesAdapter = new MoviesAdapter(new ArrayList<Movie>());
-        mMoviesViewModel = ViewModelProviders.of(this, viewModelFactory).get(MoviesViewModel.class);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.movies_ab, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Nullable
@@ -59,27 +58,54 @@ public class MoviesFragment extends DaggerFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.movies_frag, container, false);
 
+        setupRecyclerViewAdapter(root);
 
-        // Set up movies view
-        RecyclerView recyclerView = root.findViewById(R.id.movies_list);
-        recyclerView.setAdapter(mMoviesAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mMoviesViewModel.getMovies().observe(MoviesFragment.this, movies -> mMoviesAdapter.replaceData(movies));
+        setupFab();
 
 
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_movie);
-
-        fab.setOnClickListener(v -> showAddTask());
-
+        // Set action bar options
+        setHasOptionsMenu(true);
 
         return root;
 
     }
 
-    private void showAddTask() {
-        Intent intent = new Intent(getContext(), AddMovieActivity.class);
-        startActivity(intent);
+    public void setViewModel(MoviesViewModel moviesViewModel) {
+        this.mMoviesViewModel = moviesViewModel;
     }
 
+    private void setupRecyclerViewAdapter(View root) {
+        mMoviesAdapter = new MoviesAdapter(
+                new ArrayList<Movie>(0),
+                (MoviesActivity) getActivity(),
+                mMoviesViewModel
+        );
+
+        // Set up movies view
+        RecyclerView recyclerView = root.findViewById(R.id.movies_list);
+        recyclerView.setAdapter(mMoviesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration decoration = new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(decoration);
+
+        mMoviesViewModel.getMovies().observe(MoviesFragment.this, movies -> mMoviesAdapter.replaceData(movies));
+    }
+
+    private void setupFab() {
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_movie);
+
+        fab.setOnClickListener(v -> mMoviesViewModel.addNewMovie());
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        mMoviesAdapter.search(s);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        mMoviesAdapter.search(s);
+        return true;
+    }
 }

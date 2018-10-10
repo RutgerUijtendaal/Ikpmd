@@ -8,6 +8,10 @@ import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesActivityModule;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+/**
+ * Dagger Module. Holds all the Activity modules and their subcomponents. This module
+ *
+ */
 @Module
 public abstract class ActivityBindingModule {
     @ActivityScoped

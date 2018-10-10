@@ -7,10 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * In Dagger, an unscoped component cannot depend on a scoped component. As
- * {@link AppComponent} is a scoped component ({@code @Singleton}, we create a custom
- * scope to be used by all fragment components. Additionally, a component with a specific scope
- * cannot have a sub component with the same scope.
+ * An unscoped component cannot depend on a scoped component. AppComponent is scoped so all
+ * subcomponents must also be scoped.
+ *
+ * We create a custom scope for all activities and fragments.
  */
 @Documented
 @Scope
