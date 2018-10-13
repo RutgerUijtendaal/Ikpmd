@@ -10,8 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.rutger.uijtendaal.ikpmd.R;
-import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesActivity;
-import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
 
 import javax.inject.Inject;
 
@@ -25,10 +23,10 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
     public static final int ADD_MOVIE_REQUEST = 1;
 
     @Inject
-    Lazy<AddMovieFragment> addMovieFragmentProvider;
+    Lazy<AddMovieFragment> mAddMovieFragmentProvider;
 
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    ViewModelProvider.Factory mViewModelFactory;
 
     private AddMovieViewModel mAddMovieViewModel;
 
@@ -37,7 +35,7 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movies_act);
 
-        mAddMovieViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddMovieViewModel.class);
+        mAddMovieViewModel = ViewModelProviders.of(this, mViewModelFactory).get(AddMovieViewModel.class);
         mAddMovieViewModel.setNavigator(this);
 
         setupActionBar();
@@ -77,7 +75,7 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         AddMovieFragment addMovieFragment = (AddMovieFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
 
         if (addMovieFragment == null) {
-            addMovieFragment = addMovieFragmentProvider.get();
+            addMovieFragment = mAddMovieFragmentProvider.get();
             FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.contentFrame, addMovieFragment);
             fragmentTransaction.commit();

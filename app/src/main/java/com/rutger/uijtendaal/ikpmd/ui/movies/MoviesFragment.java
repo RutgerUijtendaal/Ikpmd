@@ -60,7 +60,7 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
 
         setupRecyclerViewAdapter(root);
 
-        setupFab();
+        setupFab(root);
 
 
         // Set action bar options
@@ -77,8 +77,7 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
     private void setupRecyclerViewAdapter(View root) {
         mMoviesAdapter = new MoviesAdapter(
                 new ArrayList<Movie>(0),
-                (MoviesActivity) getActivity(),
-                mMoviesViewModel
+                (MoviesActivity) getActivity()
         );
 
         // Set up movies view
@@ -91,8 +90,8 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
         mMoviesViewModel.getMovies().observe(MoviesFragment.this, movies -> mMoviesAdapter.replaceData(movies));
     }
 
-    private void setupFab() {
-        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_movie);
+    private void setupFab(View root) {
+        FloatingActionButton fab = root.findViewById(R.id.fab_add_movie);
 
         fab.setOnClickListener(v -> mMoviesViewModel.addNewMovie());
     }

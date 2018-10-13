@@ -7,13 +7,13 @@
 
         <variable
             name="viewmodel"
-            type="com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieViewModel"/>
+            type="com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsViewModel"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.addmovie.AddMovieFragment">
+        tools:context=".ui.moviedetails.MovieDetailsFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,17 +25,18 @@
             android:paddingBottom="@dimen/activity_vertical_margin">
 
             <TextView
-                android:id="@+id/add_movie_title_text"
+                android:id="@+id/detail_movie_title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@string/add_movie_title_text"
+                android:drawablePadding="5dp"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
-            <AutoCompleteTextView
-                android:id="@+id/add_movie_title"
+            <TextView
+                android:id="@+id/detail_movie_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title_hint"
@@ -45,9 +46,10 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
             <TextView
-                android:id="@+id/add_movie_rating_text"
+                android:id="@+id/detail_movie_rating_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/title_hint"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@string/add_movie_rating_text"
@@ -56,18 +58,20 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
             <RatingBar
-                android:id="@+id/add_movie_ratingBar"
+                android:id="@+id/detail_movie_ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
+                android:isIndicator="true"
                 android:rating="@={viewmodel.rating}"
                 android:stepSize="1.0"
                 android:layout_gravity="center" />
 
             <TextView
-                android:id="@+id/add_movie_thoughts_text"
+                android:id="@+id/detail_movie_thoughts_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/title_hint"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@string/add_movie_thoughts_text"
@@ -75,8 +79,8 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
-            <EditText
-                android:id="@+id/add_movie_thoughts"
+            <TextView
+                android:id="@+id/detail_movie_thoughts"
                 android:layout_width="match_parent"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_height="100dp"

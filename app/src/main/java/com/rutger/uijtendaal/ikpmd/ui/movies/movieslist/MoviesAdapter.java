@@ -1,5 +1,6 @@
 package com.rutger.uijtendaal.ikpmd.ui.movies.movieslist;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,16 +11,18 @@ import android.view.ViewGroup;
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
 import com.rutger.uijtendaal.ikpmd.databinding.MovieItemBinding;
-import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
     private static final String TAG = MoviesAdapter.class.getName();
 
-    private final MoviesViewModel mMoviesViewModel;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     private List<Movie> mMovies;
     private List<Movie> mMoviesCopy;
@@ -29,10 +32,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     private LayoutInflater layoutInflater;
 
     public MoviesAdapter(List<Movie> movies,
-                         MovieItemNavigator movieItemNavigator,
-                         MoviesViewModel moviesViewModel) {
+                         MovieItemNavigator movieItemNavigator) {
         mMovieItemNavigator = movieItemNavigator;
-        mMoviesViewModel = moviesViewModel;
         setList(movies);
     }
 
@@ -66,6 +67,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         );
 
         viewModel.setMovie(movie);
+        viewModel.setNavigator(mMovieItemNavigator);
 
         viewHolder.bind(viewModel);
     }

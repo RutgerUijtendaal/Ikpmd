@@ -10,11 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
-import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDao;
 import com.rutger.uijtendaal.ikpmd.util.AppExecutors;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -86,7 +83,6 @@ public class MoviesFb {
     }
 
     private void syncFirebaseWithLocal() {
-        Log.d(TAG, "sync Ran");
         mFb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

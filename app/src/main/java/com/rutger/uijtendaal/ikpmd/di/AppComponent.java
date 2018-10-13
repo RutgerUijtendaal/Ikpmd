@@ -4,6 +4,7 @@ package com.rutger.uijtendaal.ikpmd.di;
 import android.app.Application;
 
 import com.rutger.uijtendaal.ikpmd.IkpmdApplication;
+import com.rutger.uijtendaal.ikpmd.api.ApiModule;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepositoryModule;
 
 import javax.inject.Singleton;
@@ -18,7 +19,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ApplicationModule.class,
         ActivityBindingModule.class,
         ViewModelModule.class,
-        AndroidSupportInjectionModule.class})
+        AndroidSupportInjectionModule.class,
+        ApiModule.class})
 public interface AppComponent extends AndroidInjector<IkpmdApplication> {
 
     @Component.Builder

@@ -3,29 +3,24 @@ package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.common.base.Strings;
 import com.rutger.uijtendaal.ikpmd.R;
+import com.rutger.uijtendaal.ikpmd.api.OmdbService;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
+import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
-
 
 import javax.inject.Inject;
 
-public class AddMovieViewModel extends ViewModel {
+
+public class AddMovieViewModel extends MovieViewModel {
 
     private static final String TAG = MoviesViewModel.class.getName();
 
-    public final MutableLiveData<String> title = new MutableLiveData<>();
-
-    public final MutableLiveData<Float> rating = new MutableLiveData();
-
-    public final MutableLiveData<String> thoughts = new MutableLiveData<>();
-
     public final MutableLiveData<String> snackbarText = new MutableLiveData<>();
-
-    private final Context mContext;
 
     private final MoviesRepository mMoviesRepository;
 
@@ -33,8 +28,8 @@ public class AddMovieViewModel extends ViewModel {
 
     @Inject
     public AddMovieViewModel(Context context, MoviesRepository moviesRepository) {
+        super(context);
         mMoviesRepository = moviesRepository;
-        mContext = context;
         rating.setValue(3f);
     }
 
@@ -55,4 +50,9 @@ public class AddMovieViewModel extends ViewModel {
             mAddMovieNavigator.onMovieSaved();
         }
     }
+
+    public void setTitle(String s) {
+        title.setValue(s);
+    }
+
 }

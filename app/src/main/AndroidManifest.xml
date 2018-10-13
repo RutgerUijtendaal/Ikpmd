@@ -28,6 +28,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.movies.MoviesActivity" />
         </activity>
+        <activity
+            android:name=".ui.moviedetails.MovieDetailsActivity"
+            android:label="@string/title_activity_add_movie"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.movies.MoviesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.movies.MoviesActivity" />
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

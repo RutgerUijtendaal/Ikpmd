@@ -3,15 +3,20 @@ package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 
 import com.rutger.uijtendaal.ikpmd.R;
+import com.rutger.uijtendaal.ikpmd.api.OmdbResponse;
 import com.rutger.uijtendaal.ikpmd.databinding.AddMovieFragBinding;
+import com.rutger.uijtendaal.ikpmd.ui.addmovie.suggestions.MoviesAutoCompleteAdapter;
 
 import javax.inject.Inject;
 
@@ -20,9 +25,14 @@ import dagger.android.support.DaggerFragment;
 
 public class  AddMovieFragment extends DaggerFragment {
 
+    private static final String TAG = AddMovieFragment.class.getName();
+
     private AddMovieFragBinding mAddMovieFragBinding;
 
     private AddMovieViewModel mAddMovieViewModel;
+
+    @Inject
+    MoviesAutoCompleteAdapter moviesAutoCompleteAdapter;
 
     @Inject
     public AddMovieFragment() {
@@ -44,6 +54,11 @@ public class  AddMovieFragment extends DaggerFragment {
         }
 
         mAddMovieFragBinding.setViewmodel(mAddMovieViewModel);
+        mAddMovieFragBinding.setLifecycleOwner(this);
+
+        AutoCompleteTextView movieTitle = (AutoCompleteTextView) root.findViewById(R.id.add_movie_title);
+        movieTitle.setAdapter(moviesAutoCompleteAdapter);
+        movieTitle.setOnItemClickListener(onItemClickListener);
 
         // Set action bar options
         setHasOptionsMenu(true);
@@ -64,5 +79,14 @@ public class  AddMovieFragment extends DaggerFragment {
     public void setViewModel(AddMovieViewModel addMovieViewModel) {
         this.mAddMovieViewModel = addMovieViewModel;
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+        new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                mAddMovieViewModel.setTitle(((OmdbResponse) adapterView.getItemAtPosition(position)).getTitle());
+            }
+        };
+
 
 }

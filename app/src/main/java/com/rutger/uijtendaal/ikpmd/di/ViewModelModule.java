@@ -3,7 +3,9 @@ package com.rutger.uijtendaal.ikpmd.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieViewModel;
+import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MovieItemViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
 import com.rutger.uijtendaal.ikpmd.viewmodel.IkpmdViewModelFactory;
@@ -14,6 +16,12 @@ import dagger.multibindings.IntoMap;
 
 @Module
 abstract class ViewModelModule {
+
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(MovieViewModel.class)
+//    abstract ViewModel bidMovieViewModel(MovieViewModel movieViewModel);
+
     @Binds
     @IntoMap
     @ViewModelKey(MoviesViewModel.class)
@@ -28,6 +36,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieItemViewModel.class)
     abstract ViewModel bindMovieItemViewModel(MovieItemViewModel movieItemViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailsViewModel.class)
+    abstract ViewModel bindMovieDetailsViewModel(MovieDetailsViewModel movieDetailsViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(IkpmdViewModelFactory factory);

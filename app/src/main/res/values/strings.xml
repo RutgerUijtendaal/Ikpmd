@@ -1,13 +1,20 @@
 <resources>
     <string name="app_name">Ikpmd</string>
+    <!--Movies-->
     <string name="title_activity_movies">Your Movies</string>
 
+    <!--Add Movie-->
+    <string name="text_ab_done">Done</string>
     <string name="title_activity_add_movie">Add Movie</string>
-    <string name="title_hint">Title</string>
-    <string name="thoughts_hint">Didn\'t like the ending.</string>
-    <string name="text_ab_done">Done.</string>
     <string name="empty_movie_title">Movie Title can\'t be empty</string>
+    <string name="thoughts_hint">Didn\'t like ending</string>
+    <string name="title_hint">Title</string>
+    <string name="add_movie_title_text">Movie title</string>
+    <string name="add_movie_rating_text">Rate the movie</string>
+    <string name="add_movie_thoughts_text">Additional thoughts</string>
 
+    <!--Edit Movie-->
+    <string name="text_ab_edit">Edit</string>
 
 
 </resources>

@@ -2,8 +2,6 @@ package com.rutger.uijtendaal.ikpmd.ui.movies;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
-
 import com.rutger.uijtendaal.ikpmd.data.Movie;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 
@@ -19,9 +17,9 @@ public class MoviesViewModel extends ViewModel {
 
     private static final String TAG = MoviesViewModel.class.getName();
 
-    private final LiveData<List<Movie>> mMovies;
-
     private final MoviesRepository mMoviesRepository;
+
+    private final LiveData<List<Movie>> mMovies;
 
     private MoviesNavigator mNavigator;
 
@@ -44,4 +42,5 @@ public class MoviesViewModel extends ViewModel {
             mNavigator.addNewMovie();
         }
     }
+
 }

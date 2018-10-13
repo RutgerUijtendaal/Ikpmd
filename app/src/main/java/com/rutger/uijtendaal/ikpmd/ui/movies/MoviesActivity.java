@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieActivity;
+import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsActivity;
+import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsFragment;
 import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MovieItemNavigator;
 
 import javax.inject.Inject;
@@ -48,8 +50,10 @@ public class MoviesActivity extends DaggerAppCompatActivity implements MoviesNav
     }
 
     @Override
-    public void openMovieItem(String movieId) {
-
+    public void openMovieDetails(String movieId) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra(MovieDetailsActivity.MOVIE_ID, movieId);
+        startActivity(intent);
     }
 
     @Override
