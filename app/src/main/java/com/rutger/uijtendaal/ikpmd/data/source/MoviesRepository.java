@@ -1,11 +1,9 @@
 package com.rutger.uijtendaal.ikpmd.data.source;
 
-import android.arch.lifecycle.LiveData;
-import android.util.Log;
-
-import com.rutger.uijtendaal.ikpmd.data.source.Remote.MoviesFb;
+import com.rutger.uijtendaal.ikpmd.data.source.Remote.MoviesRemoteFb;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDao;
+import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesLocalDs;
 import com.rutger.uijtendaal.ikpmd.util.AppExecutors;
 
 import java.util.List;
@@ -26,44 +24,52 @@ public class MoviesRepository implements MoviesDataSource {
 
     private final MoviesDao mMoviesDao;
     private final AppExecutors mAppExecutors;
-    private final MoviesFb mMoviesFb;
+    private final MoviesRemoteFb mMoviesRemoteFb;
+    private final MoviesLocalDs mMoviesLocalDs;
 
     @Inject
-    MoviesRepository(MoviesDao moviesDao, AppExecutors appExecutors, MoviesFb moviesFb) {
+    MoviesRepository(MoviesDao moviesDao, AppExecutors appExecutors, MoviesRemoteFb moviesRemoteFb, MoviesLocalDs moviesLocalDs) {
         mMoviesDao = moviesDao;
         mAppExecutors = appExecutors;
-        mMoviesFb = moviesFb;
+        mMoviesRemoteFb = moviesRemoteFb;
+        mMoviesLocalDs = moviesLocalDs;
     }
 
     @Override
-    public LiveData<List<Movie>> getMovies() {
-        return mMoviesDao.getMovies();
+    public void getMovies(final LoadMoviesCallback callback) {
+        mMoviesLocalDs.getMovies(new LoadMoviesCallback() {
+            @Override
+            public void onMoviesLoaded(List<Movie> movies) {
+                callback.onMoviesLoaded(movies);
+            }
+        });
     }
 
     @Override
-    public LiveData<Movie> getMovie(String movieId) {
-        return mMoviesDao.getMovieById(movieId);
+    public void getMovie(String movieId, final GetMovieCallback callback) {
+        mMoviesLocalDs.getMovie(movieId, new GetMovieCallback() {
+            @Override
+            public void getMovieCallback(Movie movie) {
+                callback.getMovieCallback(movie);
+            }
+        });
     }
 
     @Override
     public void saveMovie(Movie movie) {
-        mAppExecutors.diskIO().execute(() ->
-                mMoviesDao.insertMovie(movie)
-        );
-        mMoviesFb.insertMovie(movie);
+        mMoviesLocalDs.saveMovie(movie);
+        mMoviesRemoteFb.insertMovie(movie);
     }
 
     @Override
     public void deleteMovie(String movieId) {
-        mAppExecutors.diskIO().execute(() ->
-                mMoviesDao.deleteMovieById(movieId)
-        );
-        mMoviesFb.deleteMovie(movieId);
+        mMoviesLocalDs.deleteMovie(movieId);
+        mMoviesRemoteFb.deleteMovie(movieId);
     }
 
     @Override
     public void deleteMovies() {
-        mAppExecutors.diskIO().execute(mMoviesDao::deleteMovies);
-        mMoviesFb.deleteMovies();
+        mMoviesLocalDs.deleteMovies();
+        mMoviesRemoteFb.deleteMovies();
     }
 }

@@ -22,24 +22,21 @@ public class AddMovieViewModel extends MovieViewModel {
 
     public final MutableLiveData<String> snackbarText = new MutableLiveData<>();
 
-    private final MoviesRepository mMoviesRepository;
-
     private AddMovieNavigator mAddMovieNavigator;
 
     @Inject
     public AddMovieViewModel(Context context, MoviesRepository moviesRepository) {
-        super(context);
-        mMoviesRepository = moviesRepository;
-        rating.setValue(3f);
+        super(context, moviesRepository);
+        rating.set(3f);
     }
 
     public void setNavigator(AddMovieNavigator navigator) { mAddMovieNavigator = navigator; }
 
     public void createMovie() {
-        if(Strings.isNullOrEmpty(title.getValue())) {
+        if(Strings.isNullOrEmpty(title.get())) {
             snackbarText.postValue(mContext.getString(R.string.empty_movie_title));
         } else {
-            Movie movie = new Movie(title.getValue(), rating.getValue(), thoughts.getValue());
+            Movie movie = new Movie(title.get(), rating.get(), thoughts.get());
             mMoviesRepository.saveMovie(movie);
             navigateOnMovieSaved();
         }
@@ -52,7 +49,7 @@ public class AddMovieViewModel extends MovieViewModel {
     }
 
     public void setTitle(String s) {
-        title.setValue(s);
+        title.set(s);
     }
 
 }

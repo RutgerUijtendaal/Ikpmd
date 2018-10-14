@@ -38,11 +38,18 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
 
     private MoviesViewModel mMoviesViewModel;
 
-    private MoviesAdapter mMoviesAdapter;
+    @Inject
+    MoviesAdapter mMoviesAdapter;
 
     @Inject
     public MoviesFragment() {
         // Requires empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMoviesViewModel.start();
     }
 
     @Override
@@ -62,7 +69,6 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
 
         setupFab(root);
 
-
         // Set action bar options
         setHasOptionsMenu(true);
 
@@ -75,19 +81,15 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
     }
 
     private void setupRecyclerViewAdapter(View root) {
-        mMoviesAdapter = new MoviesAdapter(
-                new ArrayList<Movie>(0),
-                (MoviesActivity) getActivity()
-        );
-
         // Set up movies view
+        mMoviesAdapter.setNavigator((MoviesActivity)getActivity());
         RecyclerView recyclerView = root.findViewById(R.id.movies_list);
         recyclerView.setAdapter(mMoviesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration decoration = new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(decoration);
 
-        mMoviesViewModel.getMovies().observe(MoviesFragment.this, movies -> mMoviesAdapter.replaceData(movies));
+        mMoviesViewModel.mMovies.observe(this, movies -> mMoviesAdapter.replaceData(movies));
     }
 
     private void setupFab(View root) {

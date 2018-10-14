@@ -1,8 +1,14 @@
 package com.rutger.uijtendaal.ikpmd.ui.movies;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
+
 import com.rutger.uijtendaal.ikpmd.data.Movie;
+import com.rutger.uijtendaal.ikpmd.data.source.MoviesDataSource;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 
 import java.util.List;
@@ -17,20 +23,20 @@ public class MoviesViewModel extends ViewModel {
 
     private static final String TAG = MoviesViewModel.class.getName();
 
-    private final MoviesRepository mMoviesRepository;
+    public final MutableLiveData<List<Movie>> mMovies = new MutableLiveData<>();
 
-    private final LiveData<List<Movie>> mMovies;
+    private final MoviesRepository mMoviesRepository;
 
     private MoviesNavigator mNavigator;
 
     @Inject
     public MoviesViewModel(MoviesRepository moviesRepository) {
         mMoviesRepository = moviesRepository;
-        mMovies = mMoviesRepository.getMovies();
+        start();
     }
 
-    public LiveData<List<Movie>> getMovies() {
-        return mMovies;
+    public void start() {
+        loadMovies();
     }
 
     // Set the Navigator Activity through the MoviesNavigator interface.
@@ -41,6 +47,15 @@ public class MoviesViewModel extends ViewModel {
         if (mNavigator != null) {
             mNavigator.addNewMovie();
         }
+    }
+
+    private void loadMovies() {
+        mMoviesRepository.getMovies(new MoviesDataSource.LoadMoviesCallback() {
+            @Override
+            public void onMoviesLoaded(List<Movie> movies) {
+                mMovies.setValue(movies);
+            }
+        });
     }
 
 }

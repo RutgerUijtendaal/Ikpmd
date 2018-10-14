@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@{viewmodel.getTitle()}"
+            android:text="@{viewmodel.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <RatingBar
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:isIndicator="true"
-            android:rating="@={viewmodel.getRating()}"
+            android:rating="@={viewmodel.rating}"
             style="?android:attr/ratingBarStyleSmall"
             android:stepSize="1.0" />
 

@@ -1,6 +1,8 @@
 package com.rutger.uijtendaal.ikpmd.ui.movies.movieslist;
 
 import android.content.Context;
+
+import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
 
 import java.lang.ref.WeakReference;
@@ -14,8 +16,8 @@ public class MovieItemViewModel extends MovieViewModel {
     private WeakReference<MovieItemNavigator> mNavigator;
 
     @Inject
-    public MovieItemViewModel(Context context) {
-        super(context);
+    public MovieItemViewModel(Context context, MoviesRepository moviesRepository) {
+        super(context, moviesRepository);
     }
 
     public void setNavigator(MovieItemNavigator navigator) {

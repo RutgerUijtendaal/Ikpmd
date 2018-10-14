@@ -1,6 +1,7 @@
 package com.rutger.uijtendaal.ikpmd.ui.movies.movieslist;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.data.Movie;
+import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 import com.rutger.uijtendaal.ikpmd.databinding.MovieItemBinding;
+import com.rutger.uijtendaal.ikpmd.ui.movies.MoviesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +32,21 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     private MovieItemNavigator mMovieItemNavigator;
 
+    private Context mContext;
+
+    private MoviesRepository mMoviesRepository;
+
     private LayoutInflater layoutInflater;
 
-    public MoviesAdapter(List<Movie> movies,
-                         MovieItemNavigator movieItemNavigator) {
+    @Inject
+    public MoviesAdapter(Context context, MoviesRepository moviesRepository) {
+        mContext = context;
+        mMoviesRepository = moviesRepository;
+        setList(new ArrayList<Movie>(0));
+    }
+
+    public void setNavigator(MovieItemNavigator movieItemNavigator) {
         mMovieItemNavigator = movieItemNavigator;
-        setList(movies);
     }
 
     private void setList(List<Movie> movies) {
@@ -62,11 +74,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Movie movie = mMovies.get(i);
 
-        final MovieItemViewModel viewModel = new MovieItemViewModel(
-                viewHolder.itemView.getContext().getApplicationContext()
-        );
+        final MovieItemViewModel viewModel = new MovieItemViewModel(mContext, mMoviesRepository);
 
-        viewModel.setMovie(movie);
+        viewModel.setMovieById(movie.getId());
         viewModel.setNavigator(mMovieItemNavigator);
 
         viewHolder.bind(viewModel);

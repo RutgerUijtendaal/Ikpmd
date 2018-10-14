@@ -14,13 +14,28 @@ import java.util.List;
  */
 public interface MoviesDataSource {
 
-    LiveData<List<Movie>> getMovies();
+//    LiveData<List<Movie>> getMovies();
+//
+//    LiveData<Movie> getMovie(String movieId);
 
-    LiveData<Movie> getMovie(String movieId);
+    interface LoadMoviesCallback {
+
+        void onMoviesLoaded(List<Movie> movies);
+
+    }
+
+    interface GetMovieCallback {
+
+        void getMovieCallback(Movie movie);
+    }
+
+    void getMovies(LoadMoviesCallback callback);
+
+    void getMovie(String id, GetMovieCallback callback);
 
     void saveMovie( Movie movie);
 
-    void deleteMovie( String movieId);
+    void deleteMovie(String movieId);
 
     void deleteMovies();
 

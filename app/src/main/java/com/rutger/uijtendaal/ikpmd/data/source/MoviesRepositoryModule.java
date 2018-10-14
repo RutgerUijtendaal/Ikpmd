@@ -3,9 +3,10 @@ package com.rutger.uijtendaal.ikpmd.data.source;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
-import com.rutger.uijtendaal.ikpmd.data.source.Remote.MoviesFb;
+import com.rutger.uijtendaal.ikpmd.data.source.Remote.MoviesRemoteFb;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDao;
 import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesDatabase;
+import com.rutger.uijtendaal.ikpmd.data.source.local.MoviesLocalDs;
 import com.rutger.uijtendaal.ikpmd.util.AppExecutors;
 import com.rutger.uijtendaal.ikpmd.util.DiskIOThreadExecutor;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -26,6 +28,13 @@ abstract public class MoviesRepositoryModule {
 
     @Singleton
     @Provides
+    static MoviesLocalDs getMoviesLocalDs(AppExecutors appExecutors, MoviesDao moviesDao) {
+        MoviesLocalDs moviesLocalDs = new MoviesLocalDs(appExecutors, moviesDao);
+        return moviesLocalDs;
+    }
+
+    @Singleton
+    @Provides
     static MoviesDatabase getMoviesDatabase(Application context) {
         return Room.databaseBuilder(context.getApplicationContext(), MoviesDatabase.class, "Movies.db")
                 .fallbackToDestructiveMigration()
@@ -34,9 +43,9 @@ abstract public class MoviesRepositoryModule {
 
     @Singleton
     @Provides
-    static MoviesFb getMoviesFb(MoviesDao moviesDao, AppExecutors appExecutors) {
-        MoviesFb moviesFb = new MoviesFb(moviesDao, appExecutors);
-        return moviesFb;
+    static MoviesRemoteFb getMoviesFb(MoviesDao moviesDao, AppExecutors appExecutors) {
+        MoviesRemoteFb moviesRemoteFb = new MoviesRemoteFb(moviesDao, appExecutors);
+        return moviesRemoteFb;
     }
 
     @Singleton

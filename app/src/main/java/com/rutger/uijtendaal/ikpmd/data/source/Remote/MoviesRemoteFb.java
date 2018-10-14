@@ -1,8 +1,5 @@
 package com.rutger.uijtendaal.ikpmd.data.source.Remote;
 
-import android.arch.lifecycle.LiveData;
-import android.util.Log;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,9 +14,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class MoviesFb {
+public class MoviesRemoteFb {
 
-    private static final String TAG = MoviesFb.class.getName();
+    private static final String TAG = MoviesRemoteFb.class.getName();
 
     DatabaseReference mFb;
 
@@ -28,7 +25,7 @@ public class MoviesFb {
     MoviesDao mMoviesDao;
 
     @Inject
-    public MoviesFb(MoviesDao moviesDao, AppExecutors appExecutors) {
+    public MoviesRemoteFb(MoviesDao moviesDao, AppExecutors appExecutors) {
         mAppExecutors = appExecutors;
         mMoviesDao = moviesDao;
         mFb = FirebaseDatabase.getInstance().getReference("movies");

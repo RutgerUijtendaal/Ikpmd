@@ -25,7 +25,7 @@ public interface MoviesDao {
      * @return all movies
      */
     @Query("SELECT * FROM movies")
-    LiveData<List<Movie>> getMovies();
+    List<Movie> getMovies();
 
     /**
      *
@@ -35,7 +35,7 @@ public interface MoviesDao {
      * @return the movie with the movieId
      */
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    LiveData<Movie> getMovieById(String movieId);
+    Movie getMovieById(String movieId);
 
     /**
      * Insert a movie into the database. If it already exists ignore
