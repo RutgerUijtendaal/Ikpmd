@@ -7,6 +7,10 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Dagger Module to provide API related dependencies
+ *
+ */
 @Module
 public class ApiModule {
 
@@ -19,4 +23,5 @@ public class ApiModule {
                 .build()
                 .create(OmdbService.class);
     }
+
 }

@@ -21,21 +21,13 @@
         </activity>
         <activity
             android:name=".ui.addmovie.AddMovieActivity"
-            android:label="@string/title_activity_add_movie"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.movies.MoviesActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.movies.MoviesActivity" />
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".ui.moviedetails.MovieDetailsActivity"
-            android:label="@string/title_activity_add_movie"
+            android:label="@string/title_activity_movie_details"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ui.movies.MoviesActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.movies.MoviesActivity" />
+            android:parentActivityName=".ui.movies.MoviesActivity">
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

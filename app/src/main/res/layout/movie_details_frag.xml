@@ -31,9 +31,19 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:text="@string/add_movie_title_text"
-                android:drawablePadding="5dp"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
+
+            <TextView
+                android:id="@+id/detail_movie_title_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:text="@string/movie_details_title_text"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"/>
+
 
             <TextView
                 android:id="@+id/detail_movie_title"
@@ -41,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/title_hint"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:text="@={viewmodel.title}"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
@@ -52,7 +61,7 @@
                 android:hint="@string/title_hint"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:text="@string/add_movie_rating_text"
+                android:text="@string/movie_details_rating_text"
                 android:drawablePadding="5dp"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
@@ -68,25 +77,23 @@
                 android:layout_gravity="center" />
 
             <TextView
-                android:id="@+id/detail_movie_thoughts_text"
+                android:id="@+id/detail_movie_notes_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title_hint"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:text="@string/add_movie_thoughts_text"
+                android:text="@string/movie_details_notes_text"
                 android:drawablePadding="5dp"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"/>
 
             <TextView
-                android:id="@+id/detail_movie_thoughts"
+                android:id="@+id/detail_movie_notes"
                 android:layout_width="match_parent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_height="100dp"
                 android:gravity="top"
-                android:hint="@string/thoughts_hint"
-                android:text="@={viewmodel.thoughts}"
+                android:text="@={viewmodel.notes}"
                 />
         </LinearLayout>
 

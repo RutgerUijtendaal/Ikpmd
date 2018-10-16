@@ -34,19 +34,19 @@ public final class Movie {
     private final float mRating;
 
     @Nullable
-    @ColumnInfo(name = "thoughts")
-    private final String mThoughts;
+    @ColumnInfo(name = "notes")
+    private final String mNotes;
 
     /**
      * Constructor to create a movie with a new UUID.
      *
      * @param title         title of the movie
      * @param rating       length of the movie
-     * @param thoughts   thoughts of the movie
+     * @param notes   notes of the movie
      */
     @Ignore
-    public Movie(@NonNull String title, @NonNull float rating, @Nullable String thoughts) {
-        this(UUID.randomUUID().toString(), title, rating, thoughts);
+    public Movie(@NonNull String title, @NonNull float rating, @Nullable String notes) {
+        this(UUID.randomUUID().toString(), title, rating, notes);
     }
 
     /**
@@ -55,13 +55,13 @@ public final class Movie {
      * @param id               id of the movie
      * @param title         title of the movie
      * @param rating       length of the movie
-     * @param thoughts   thoughts of the movie
+     * @param notes   notes of the movie
      */
-    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String thoughts) {
+    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String notes) {
         mId = id;
         mTitle = title;
         mRating = rating;
-        mThoughts = thoughts;
+        mNotes = notes;
     }
 
     @NonNull
@@ -74,8 +74,8 @@ public final class Movie {
     public float getRating() { return mRating; }
 
     @Nullable
-    public String getThoughts() {
-        return mThoughts;
+    public String getNotes() {
+        return mNotes;
     }
 
 }

@@ -32,10 +32,10 @@ public class MoviesViewModel extends ViewModel {
     @Inject
     public MoviesViewModel(MoviesRepository moviesRepository) {
         mMoviesRepository = moviesRepository;
-        start();
+        init();
     }
 
-    public void start() {
+    public void init() {
         loadMovies();
     }
 
@@ -47,6 +47,10 @@ public class MoviesViewModel extends ViewModel {
         if (mNavigator != null) {
             mNavigator.addNewMovie();
         }
+    }
+
+    public void deleteMovies() {
+        mMoviesRepository.deleteMovies();
     }
 
     private void loadMovies() {

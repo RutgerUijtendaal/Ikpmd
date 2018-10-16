@@ -118,8 +118,8 @@ public class MoviesRemoteFb {
         String id = dataSnapshot.child("id").getValue(String.class);
         String title = dataSnapshot.child("title").getValue(String.class);
         float rating = dataSnapshot.child("rating").getValue(Float.class);
-        String thoughts = dataSnapshot.child("thoughts").getValue(String.class);
-        Movie movie = new Movie(id, title, rating, thoughts);
+        String notes = dataSnapshot.child("notes").getValue(String.class);
+        Movie movie = new Movie(id, title, rating, notes);
         return movie;
     }
 }

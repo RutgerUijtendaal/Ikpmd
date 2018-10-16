@@ -4,20 +4,37 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class OmdbResponseList {
+/**
+ * OmdbSearchResponse class to hold the API response.
+ *
+ * API JSON Response layout:
+ *
+ * "Search": [
+ *          {OmdbMovie],
+ *          {OmdbMovie}
+ *          ],
+ * "totalResults" :   ,
+ * "Response" :  boolean if response has succesful
+ *
+ */
+public class OmdbSearchResponse {
 
     @SerializedName("Search")
-    private List<OmdbResponse> search;
+    private List<OmdbMovie> search;
     @SerializedName("totalResults")
     private String totalResults;
     @SerializedName("Response")
-    private String response;
+    private Boolean response;
 
-    public List<OmdbResponse> getSearch() {
+    /**
+     *
+     * @return
+     */
+    public List<OmdbMovie> getSearch() {
         return search;
     }
 
-    public void setSearch(List<OmdbResponse> search) {
+    public void setSearch(List<OmdbMovie> search) {
         this.search = search;
     }
 
@@ -29,19 +46,19 @@ public class OmdbResponseList {
         this.totalResults = totalResults;
     }
 
-    public String getResponse() {
+    public Boolean getResponse() {
         return response;
     }
 
     @Override
     public String toString() {
-        return "OmdbResponseList{" +
+        return "OmdbSearchResponse{" +
                 "totalResults='" + totalResults + '\'' +
                 ", response='" + response + '\'' +
                 '}';
     }
 
     public void setResponse(String response) {
-        this.response = response;
+        this.response = response.equalsIgnoreCase("True");
     }
 }

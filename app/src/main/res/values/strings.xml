@@ -2,19 +2,27 @@
     <string name="app_name">Ikpmd</string>
     <!--Movies-->
     <string name="title_activity_movies">Your Movies</string>
+    <string name="text_ab_delete_all">Delete Movies</string>
 
     <!--Add Movie-->
     <string name="text_ab_done">Done</string>
     <string name="title_activity_add_movie">Add Movie</string>
     <string name="empty_movie_title">Movie Title can\'t be empty</string>
-    <string name="thoughts_hint">Didn\'t like ending</string>
+    <string name="notes_hint">Add additional thoughts here</string>
     <string name="title_hint">Title</string>
-    <string name="add_movie_title_text">Movie title</string>
-    <string name="add_movie_rating_text">Rate the movie</string>
-    <string name="add_movie_thoughts_text">Additional thoughts</string>
+    <string name="add_movie_title_text">Title</string>
+    <string name="add_movie_rating_text">Rating</string>
+    <string name="add_movie_notes_text">Notes</string>
 
     <!--Edit Movie-->
-    <string name="text_ab_edit">Edit</string>
+    <string name="title_activity_edit_movie">Edit Movie</string>
 
+    <!--Movie Details-->
+    <string name="title_activity_movie_details">Movie Details</string>
+    <string name="text_ab_edit">Edit</string>
+    <string name="text_ab_delete">Delete</string>
+    <string name="movie_details_title_text">Title</string>
+    <string name="movie_details_rating_text">Rating</string>
+    <string name="movie_details_notes_text">Notes</string>
 
 </resources>

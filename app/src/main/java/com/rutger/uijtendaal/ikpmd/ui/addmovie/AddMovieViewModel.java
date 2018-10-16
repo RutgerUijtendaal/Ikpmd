@@ -24,28 +24,44 @@ public class AddMovieViewModel extends MovieViewModel {
 
     private AddMovieNavigator mAddMovieNavigator;
 
+    private boolean mIsEditTask;
+
     @Inject
     public AddMovieViewModel(Context context, MoviesRepository moviesRepository) {
         super(context, moviesRepository);
-        rating.set(3f);
     }
 
     public void setNavigator(AddMovieNavigator navigator) { mAddMovieNavigator = navigator; }
 
-    public void createMovie() {
-        if(Strings.isNullOrEmpty(title.get())) {
-            snackbarText.postValue(mContext.getString(R.string.empty_movie_title));
+    public void init(String taskId) {
+        if(taskId == null) {
+            mIsEditTask = false;
+            rating.set(3f);
         } else {
-            Movie movie = new Movie(title.get(), rating.get(), thoughts.get());
-            mMoviesRepository.saveMovie(movie);
-            navigateOnMovieSaved();
+            mIsEditTask = true;
+            setMovieById(taskId);
         }
     }
 
-    private void navigateOnMovieSaved() {
-        if (mAddMovieNavigator!= null) {
-            mAddMovieNavigator.onMovieSaved();
+    public void saveMovie() {
+        if(Strings.isNullOrEmpty(title.get())) {
+            snackbarText.postValue(mContext.getString(R.string.empty_movie_title));
+            return;
         }
+
+        if(mIsEditTask) {
+            Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get());
+            mMoviesRepository.saveMovie(newMovie);
+            Log.d(TAG, "edit navigate");
+            mAddMovieNavigator.onMovieSaved();
+            return;
+        }
+
+        Movie movie = new Movie(title.get(), rating.get(), notes.get());
+        mMoviesRepository.saveMovie(movie);
+        Log.d(TAG, "added navigate");
+        mAddMovieNavigator.onMovieSaved();
+
     }
 
     public void setTitle(String s) {

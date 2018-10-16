@@ -1,6 +1,5 @@
 package com.rutger.uijtendaal.ikpmd.ui;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.databinding.Observable;
@@ -16,7 +15,7 @@ public abstract class MovieViewModel extends ViewModel {
 
     public final ObservableField<Float> rating = new ObservableField<>();
 
-    public final ObservableField<String> thoughts = new ObservableField<>();
+    public final ObservableField<String> notes = new ObservableField<>();
 
     protected final ObservableField<Movie> mMovieObservable = new ObservableField<>();
 
@@ -35,11 +34,12 @@ public abstract class MovieViewModel extends ViewModel {
                 if(movie != null) {
                     title.set(movie.getTitle());
                     rating.set(movie.getRating());
-                    thoughts.set(movie.getThoughts());
+                    notes.set(movie.getNotes());
+
                 } else {
                     title.set("No data");
                     rating.set(3f);
-                    thoughts.set("");
+                    notes.set("");
                 }
             }
         });
@@ -55,6 +55,9 @@ public abstract class MovieViewModel extends ViewModel {
     }
 
     protected String getMovieId() {
+        if(mMovieObservable.get() == null) {
+            return null;
+        }
         return mMovieObservable.get().getId();
     }
 

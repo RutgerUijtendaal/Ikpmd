@@ -10,14 +10,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Task;
 import com.rutger.uijtendaal.ikpmd.R;
-import com.rutger.uijtendaal.ikpmd.api.OmdbResponse;
-import com.rutger.uijtendaal.ikpmd.api.OmdbResponseList;
+import com.rutger.uijtendaal.ikpmd.api.OmdbMovie;
+import com.rutger.uijtendaal.ikpmd.api.OmdbSearchResponse;
 import com.rutger.uijtendaal.ikpmd.api.OmdbService;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
     private Context mContext;
     private OmdbService mOmdbService;
 
-    private List<OmdbResponse> resultList = new ArrayList<>();
+    private List<OmdbMovie> resultList = new ArrayList<>();
 
     @Inject
     public MoviesAutoCompleteAdapter(Context context, OmdbService omdbService) {
@@ -48,7 +46,7 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
     }
 
     @Override
-    public OmdbResponse getItem(int position) {
+    public OmdbMovie getItem(int position) {
         return resultList.get(position);
     }
 
@@ -79,16 +77,16 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
-                List<OmdbResponse> suggestions = new ArrayList<>(0);
+                List<OmdbMovie> suggestions = new ArrayList<>(0);
 
                 if(constraint != null && constraint.toString().length() > 5) {
-                    Call<OmdbResponseList> call = mOmdbService.searchSuggestions(constraint.toString());
+                    Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(constraint.toString());
                     try {
                         // Filters run on worker thread so we can .execute() instead of waiting for a callback response
-                        Response<OmdbResponseList> response = call.execute();
-                        OmdbResponseList result = response.body();
+                        Response<OmdbSearchResponse> response = call.execute();
+                        OmdbSearchResponse result = response.body();
                         if(result.getResponse().equals("True")) {
-                            for(OmdbResponse r: result.getSearch()) {
+                            for(OmdbMovie r: result.getSearch()) {
                                 suggestions.add(r);
                             }
                         }
@@ -104,7 +102,7 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results != null && results.count > 0) {
-                    resultList = (List<OmdbResponse>) results.values;
+                    resultList = (List<OmdbMovie>) results.values;
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();
@@ -114,25 +112,24 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
         return filter;
     }
 
-    public List<OmdbResponse> getSuggestions(String query) {
-        Call<OmdbResponseList> call = mOmdbService.searchSuggestions(query);
+    public List<OmdbMovie> getSuggestions(String query) {
+        Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(query);
 
-        final List<OmdbResponse> suggestions = new ArrayList<>(0);
+        final List<OmdbMovie> suggestions = new ArrayList<>(0);
 
-        call.enqueue(new Callback<OmdbResponseList>() {
+        call.enqueue(new Callback<OmdbSearchResponse>() {
             @Override
-            public void onResponse(Call<OmdbResponseList> call, Response<OmdbResponseList> response) {
-                OmdbResponseList result = response.body();
-                Log.d(TAG, result.getResponse());
-                if(result.getResponse().equals("True")) {
-                    for(OmdbResponse r: result.getSearch()) {
+            public void onResponse(Call<OmdbSearchResponse> call, Response<OmdbSearchResponse> response) {
+                OmdbSearchResponse result = response.body();
+                if(result.getResponse()) {
+                    for(OmdbMovie r: result.getSearch()) {
                         suggestions.add(r);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<OmdbResponseList> call, Throwable t) {
+            public void onFailure(Call<OmdbSearchResponse> call, Throwable t) {
                 Log.e(TAG, "error in getting remote data" + t.getMessage());
             }
         });

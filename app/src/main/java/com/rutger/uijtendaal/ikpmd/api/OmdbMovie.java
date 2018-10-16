@@ -2,7 +2,10 @@ package com.rutger.uijtendaal.ikpmd.api;
 
 import com.google.gson.annotations.SerializedName;
 
-public class OmdbResponse {
+/**
+ * OMDB Movie POJO used to map a Movie object to using Gson.
+ */
+public class OmdbMovie {
 
     @SerializedName("Title")
     private String title;

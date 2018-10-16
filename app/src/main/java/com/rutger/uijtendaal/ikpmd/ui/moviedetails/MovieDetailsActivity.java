@@ -2,14 +2,18 @@ package com.rutger.uijtendaal.ikpmd.ui.moviedetails;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.rutger.uijtendaal.ikpmd.R;
+import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieActivity;
+import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieNavigator;
 
 import javax.inject.Inject;
 
@@ -30,6 +34,7 @@ public class MovieDetailsActivity extends DaggerAppCompatActivity implements Mov
 
     private MovieDetailsViewModel mMoviesDetailViewModel;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +45,6 @@ public class MovieDetailsActivity extends DaggerAppCompatActivity implements Mov
 
         Bundle extras = getIntent().getExtras();
         String movieId = extras.getString(MOVIE_ID);
-
-        Log.d(TAG, movieId);
 
         mMoviesDetailViewModel.setMovieById(movieId);
 
@@ -54,8 +57,16 @@ public class MovieDetailsActivity extends DaggerAppCompatActivity implements Mov
     }
 
     @Override
-    public void editMovie() {
+    public void editMovie(String movieId) {
+        Intent intent = new Intent(this, AddMovieActivity.class);
+        intent.putExtra(AddMovieActivity.MOVIE_ID, movieId);
+        startActivity(intent);
+    }
 
+    @Override
+    public void deleteMovie(String movieId) {
+        setResult(RESULT_OK);
+        onBackPressed();
     }
 
     private void setupActionBar() {
@@ -64,7 +75,6 @@ public class MovieDetailsActivity extends DaggerAppCompatActivity implements Mov
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
     }
 
     private MovieDetailsFragment getFragment() {

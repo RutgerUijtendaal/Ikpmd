@@ -59,7 +59,7 @@ public class MoviesActivity extends DaggerAppCompatActivity implements MoviesNav
     @Override
     public void addNewMovie() {
         Intent intent = new Intent(this, AddMovieActivity.class);
-        startActivityForResult(intent, AddMovieActivity.ADD_MOVIE_REQUEST);
+        startActivity(intent);
     }
 
     private void setupActionBar() {

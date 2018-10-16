@@ -7,6 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.rutger.uijtendaal.ikpmd.R;
@@ -20,7 +21,11 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
 
     private static final String TAG = AddMovieActivity.class.getName();
 
+    public static final String MOVIE_ID = "MOVIE_ID";
+
     public static final int ADD_MOVIE_REQUEST = 1;
+
+    public static final int EDIT_MOVIE_REQUEST = 2;
 
     @Inject
     Lazy<AddMovieFragment> mAddMovieFragmentProvider;
@@ -38,6 +43,18 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         mAddMovieViewModel = ViewModelProviders.of(this, mViewModelFactory).get(AddMovieViewModel.class);
         mAddMovieViewModel.setNavigator(this);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            mAddMovieViewModel.init(null);
+            Log.d(TAG, "create movie");
+            setTitle(R.string.title_activity_add_movie);
+        } else {
+            String movieId = extras.getString(MOVIE_ID);
+            Log.d(TAG, "edit movie");
+            mAddMovieViewModel.init(movieId);
+            setTitle(R.string.title_activity_edit_movie);
+        }
+
         setupActionBar();
 
         AddMovieFragment addMovieFragment = getFragment();
@@ -50,16 +67,10 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onMovieSaved() {
-        setResult(RESULT_OK);
-        finish();
     }
 
     private void setupActionBar() {
@@ -82,5 +93,13 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         }
 
         return addMovieFragment;
+    }
+
+    @Override
+    public void onMovieSaved() {
+        Log.d(TAG, "onMovieSaved");
+        setResult(RESULT_OK);
+        onBackPressed();
+        finish();
     }
 }

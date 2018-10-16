@@ -49,7 +49,7 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
     @Override
     public void onResume() {
         super.onResume();
-        mMoviesViewModel.start();
+        mMoviesViewModel.init();
     }
 
     @Override
@@ -76,6 +76,16 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case R.id.action_delete_movies:
+                mMoviesViewModel.deleteMovies();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void setViewModel(MoviesViewModel moviesViewModel) {
         this.mMoviesViewModel = moviesViewModel;
     }
@@ -86,7 +96,7 @@ public class MoviesFragment extends DaggerFragment implements SearchView.OnQuery
         RecyclerView recyclerView = root.findViewById(R.id.movies_list);
         recyclerView.setAdapter(mMoviesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration decoration = new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration decoration = new DividerItemDecoration(getActivity().getApplicationContext(), 0);
         recyclerView.addItemDecoration(decoration);
 
         mMoviesViewModel.mMovies.observe(this, movies -> mMoviesAdapter.replaceData(movies));

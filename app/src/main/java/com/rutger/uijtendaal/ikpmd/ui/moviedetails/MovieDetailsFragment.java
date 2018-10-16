@@ -32,6 +32,12 @@ public class MovieDetailsFragment extends DaggerFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mMovieDetailsViewModel.refresh();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.details_movie_ab, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -57,7 +63,13 @@ public class MovieDetailsFragment extends DaggerFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_edit_movie:
+                Log.d(TAG, "edit movie");
                 mMovieDetailsViewModel.editMovie();
+                return true;
+            case R.id.action_delete_movie:
+                Log.d(TAG, "delete movie");
+                mMovieDetailsViewModel.deleteMovie();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

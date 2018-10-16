@@ -3,7 +3,6 @@ package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 
 import com.rutger.uijtendaal.ikpmd.R;
-import com.rutger.uijtendaal.ikpmd.api.OmdbResponse;
+import com.rutger.uijtendaal.ikpmd.api.OmdbMovie;
 import com.rutger.uijtendaal.ikpmd.databinding.AddMovieFragBinding;
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.suggestions.MoviesAutoCompleteAdapter;
 
@@ -70,7 +69,7 @@ public class  AddMovieFragment extends DaggerFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_add_movie:
-                mAddMovieViewModel.createMovie();
+                mAddMovieViewModel.saveMovie();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -84,7 +83,7 @@ public class  AddMovieFragment extends DaggerFragment {
         new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                mAddMovieViewModel.setTitle(((OmdbResponse) adapterView.getItemAtPosition(position)).getTitle());
+                mAddMovieViewModel.setTitle(((OmdbMovie) adapterView.getItemAtPosition(position)).getTitle());
             }
         };
 
