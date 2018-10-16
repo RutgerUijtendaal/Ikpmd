@@ -9,6 +9,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+/**
+ * Movies Local Data Source. Contains the CRUD operations for movies. Uses AppExecutor to execute
+ * database operations on the IO thread.
+ */
 @Singleton
 public class MoviesLocalDs implements com.rutger.uijtendaal.ikpmd.data.source.MoviesDataSource {
 

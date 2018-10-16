@@ -13,6 +13,15 @@ import com.rutger.uijtendaal.ikpmd.util.AppExecutors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+/**
+ * Movies Remote Firebase Data Source. Allows for inserting and deleting. Because the local SQL
+ * provides the source of truth for data in the app no Get methods are available for Firebase.
+ * Instead an Event listener is created that listens to changes in the Fb database and syncs them
+ * with local.
+ *
+ * On startup of the app the local database is synced with remote to ensure all data is up to date.
+ *
+ */
 @Singleton
 public class MoviesRemoteFb {
 
@@ -119,7 +128,8 @@ public class MoviesRemoteFb {
         String title = dataSnapshot.child("title").getValue(String.class);
         float rating = dataSnapshot.child("rating").getValue(Float.class);
         String notes = dataSnapshot.child("notes").getValue(String.class);
-        Movie movie = new Movie(id, title, rating, notes);
+        String posterUrl = dataSnapshot.child("posterUrl").getValue(String.class);
+        Movie movie = new Movie(id, title, rating, notes, posterUrl);
         return movie;
     }
 }

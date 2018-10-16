@@ -37,31 +37,38 @@ public final class Movie {
     @ColumnInfo(name = "notes")
     private final String mNotes;
 
+    @Nullable
+    @ColumnInfo(name="posterUrl")
+    private final String mPosterUrl;
+
     /**
      * Constructor to create a movie with a new UUID.
      *
-     * @param title         title of the movie
-     * @param rating       length of the movie
-     * @param notes   notes of the movie
+     * @param title              title of the movie
+     * @param rating            length of the movie
+     * @param notes              notes of the movie
+     * @param posterUrl     url of the movie poster
      */
     @Ignore
-    public Movie(@NonNull String title, @NonNull float rating, @Nullable String notes) {
-        this(UUID.randomUUID().toString(), title, rating, notes);
+    public Movie(@NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl) {
+        this(UUID.randomUUID().toString(), title, rating, notes, posterUrl);
     }
 
     /**
      * Constructor to create a new movie
      *
-     * @param id               id of the movie
-     * @param title         title of the movie
-     * @param rating       length of the movie
-     * @param notes   notes of the movie
+     * @param id                    id of the movie
+     * @param title              title of the movie
+     * @param rating            length of the movie
+     * @param notes              notes of the movie
+     * @param posterUrl     url of the movie poster
      */
-    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String notes) {
+    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl) {
         mId = id;
         mTitle = title;
         mRating = rating;
         mNotes = notes;
+        mPosterUrl = posterUrl;
     }
 
     @NonNull
@@ -77,5 +84,8 @@ public final class Movie {
     public String getNotes() {
         return mNotes;
     }
+
+    @Nullable
+    public String getPosterUrl() { return mPosterUrl; }
 
 }

@@ -17,6 +17,8 @@ public abstract class MovieViewModel extends ViewModel {
 
     public final ObservableField<String> notes = new ObservableField<>();
 
+    public final ObservableField<String> posterUrl = new ObservableField<>();
+
     protected final ObservableField<Movie> mMovieObservable = new ObservableField<>();
 
     protected final MoviesRepository mMoviesRepository;
@@ -35,11 +37,13 @@ public abstract class MovieViewModel extends ViewModel {
                     title.set(movie.getTitle());
                     rating.set(movie.getRating());
                     notes.set(movie.getNotes());
+                    posterUrl.set(movie.getPosterUrl());
 
                 } else {
                     title.set("No data");
                     rating.set(3f);
                     notes.set("");
+                    posterUrl.set("");
                 }
             }
         });

@@ -50,19 +50,21 @@ public class AddMovieViewModel extends MovieViewModel {
         }
 
         if(mIsEditTask) {
-            Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get());
+            Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get(), posterUrl.get());
             mMoviesRepository.saveMovie(newMovie);
             Log.d(TAG, "edit navigate");
             mAddMovieNavigator.onMovieSaved();
             return;
         }
 
-        Movie movie = new Movie(title.get(), rating.get(), notes.get());
+        Movie movie = new Movie(title.get(), rating.get(), notes.get(), posterUrl.get());
         mMoviesRepository.saveMovie(movie);
         Log.d(TAG, "added navigate");
         mAddMovieNavigator.onMovieSaved();
 
     }
+
+    public void setPosterUrl(String s) { posterUrl.set(s);}
 
     public void setTitle(String s) {
         title.set(s);

@@ -3,6 +3,7 @@ package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,7 +84,9 @@ public class  AddMovieFragment extends DaggerFragment {
         new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.d(TAG, "on click ran");
                 mAddMovieViewModel.setTitle(((OmdbMovie) adapterView.getItemAtPosition(position)).getTitle());
+                mAddMovieViewModel.setPosterUrl(((OmdbMovie) adapterView.getItemAtPosition(position)).getPosterUrl());
             }
         };
 

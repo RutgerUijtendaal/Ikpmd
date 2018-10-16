@@ -66,7 +66,6 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
         String movieYear = getItem(position).getYear();
 
         ((TextView) convertView.findViewById(R.id.suggestion_title)).setText(movieTitle + " (" + movieYear + ")");
-//        ((TextView) convertView.findViewById(R.id.suggestion_year)).setText(getItem(position).getYear());
         return convertView;
     }
 
@@ -83,9 +82,10 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
                     Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(constraint.toString());
                     try {
                         // Filters run on worker thread so we can .execute() instead of waiting for a callback response
+                        Log.d(TAG, "Register filter");
                         Response<OmdbSearchResponse> response = call.execute();
                         OmdbSearchResponse result = response.body();
-                        if(result.getResponse().equals("True")) {
+                        if(result.getResponse()){
                             for(OmdbMovie r: result.getSearch()) {
                                 suggestions.add(r);
                             }
@@ -116,11 +116,13 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
         Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(query);
 
         final List<OmdbMovie> suggestions = new ArrayList<>(0);
+        Log.d(TAG, "Success Response");
 
         call.enqueue(new Callback<OmdbSearchResponse>() {
             @Override
             public void onResponse(Call<OmdbSearchResponse> call, Response<OmdbSearchResponse> response) {
                 OmdbSearchResponse result = response.body();
+                Log.d(TAG, "Success Response");
                 if(result.getResponse()) {
                     for(OmdbMovie r: result.getSearch()) {
                         suggestions.add(r);
