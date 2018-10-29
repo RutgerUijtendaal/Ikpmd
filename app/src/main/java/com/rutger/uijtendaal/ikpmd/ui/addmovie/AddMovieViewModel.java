@@ -2,7 +2,8 @@ package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.util.Log;
+import android.databinding.ObservableField;
+import android.databinding.ObservableList;
 
 import com.google.common.base.Strings;
 import com.rutger.uijtendaal.ikpmd.R;
@@ -18,7 +19,7 @@ public class AddMovieViewModel extends MovieViewModel {
 
     private static final String TAG = MoviesViewModel.class.getName();
 
-    public final MutableLiveData<String> snackbarText = new MutableLiveData<>();
+    public final ObservableField<String> toastText = new ObservableField<>();
 
     private AddMovieNavigator mAddMovieNavigator;
 
@@ -43,23 +44,27 @@ public class AddMovieViewModel extends MovieViewModel {
 
     public void saveMovie() {
         if(Strings.isNullOrEmpty(title.get())) {
-            snackbarText.postValue(mContext.getString(R.string.empty_movie_title));
+            toastText.set(mContext.getString(R.string.empty_movie_title));
             return;
         }
 
         if(mIsEditTask) {
             Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get(), posterUrl.get());
             mMoviesRepository.saveMovie(newMovie);
-            Log.d(TAG, "edit navigate");
+            toastText.set("Movie Updated");
             mAddMovieNavigator.onMovieSaved();
             return;
         }
 
         Movie movie = new Movie(title.get(), rating.get(), notes.get(), posterUrl.get());
         mMoviesRepository.saveMovie(movie);
-        Log.d(TAG, "added navigate");
+        toastText.set("Movie Added");
         mAddMovieNavigator.onMovieSaved();
 
+    }
+
+    public String getToastText() {
+        return toastText.get();
     }
 
     public void setPosterUrl(String s) { posterUrl.set(s);}

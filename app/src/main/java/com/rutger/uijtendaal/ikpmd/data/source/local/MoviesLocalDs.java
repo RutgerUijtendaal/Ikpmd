@@ -14,7 +14,7 @@ import javax.inject.Singleton;
  * database operations on the IO thread.
  */
 @Singleton
-public class MoviesLocalDs implements com.rutger.uijtendaal.ikpmd.data.source.MoviesDataSource {
+public class MoviesLocalDs implements MoviesDataSource {
 
     private MoviesDao mMoviesDao;
 
