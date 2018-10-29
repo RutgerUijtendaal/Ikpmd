@@ -1,4 +1,4 @@
-package com.rutger.uijtendaal.ikpmd.ui;
+package com.rutger.uijtendaal.ikpmd.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;

@@ -3,7 +3,7 @@ package com.rutger.uijtendaal.ikpmd.ui.movies.movieslist;
 import android.content.Context;
 
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
-import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
+import com.rutger.uijtendaal.ikpmd.viewmodel.MovieViewModel;
 
 import java.lang.ref.WeakReference;
 

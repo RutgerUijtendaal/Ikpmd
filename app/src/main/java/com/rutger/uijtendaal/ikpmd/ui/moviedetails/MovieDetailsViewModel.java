@@ -3,7 +3,7 @@ package com.rutger.uijtendaal.ikpmd.ui.moviedetails;
 import android.content.Context;
 
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
-import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
+import com.rutger.uijtendaal.ikpmd.viewmodel.MovieViewModel;
 
 import javax.inject.Inject;
 

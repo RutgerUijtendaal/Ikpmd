@@ -3,7 +3,6 @@ package com.rutger.uijtendaal.ikpmd.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.rutger.uijtendaal.ikpmd.ui.MovieViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsViewModel;
 import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MovieItemViewModel;
