@@ -51,6 +51,7 @@ public class MoviesViewModel extends ViewModel {
 
     public void deleteMovies() {
         mMoviesRepository.deleteMovies();
+        loadMovies();
     }
 
     private void loadMovies() {

@@ -23,10 +23,6 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
 
     public static final String MOVIE_ID = "MOVIE_ID";
 
-    public static final int ADD_MOVIE_REQUEST = 1;
-
-    public static final int EDIT_MOVIE_REQUEST = 2;
-
     @Inject
     Lazy<AddMovieFragment> mAddMovieFragmentProvider;
 
@@ -45,13 +41,11 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
 
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
-            mAddMovieViewModel.init(null);
-            Log.d(TAG, "create movie");
+            mAddMovieViewModel.setAddOrEdit(null);
             setTitle(R.string.title_activity_add_movie);
         } else {
             String movieId = extras.getString(MOVIE_ID);
-            Log.d(TAG, "edit movie");
-            mAddMovieViewModel.init(movieId);
+            mAddMovieViewModel.setAddOrEdit(movieId);
             setTitle(R.string.title_activity_edit_movie);
         }
 

@@ -19,6 +19,8 @@ public abstract class MovieViewModel extends ViewModel {
 
     public final ObservableField<String> posterUrl = new ObservableField<>();
 
+    public final ObservableField<Integer> timesWatched = new ObservableField<>();
+
     protected final ObservableField<Movie> mMovieObservable = new ObservableField<>();
 
     protected final MoviesRepository mMoviesRepository;
@@ -31,19 +33,20 @@ public abstract class MovieViewModel extends ViewModel {
 
         mMovieObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
-            public void onPropertyChanged(Observable observable, int i) {
+            public void onPropertyChanged(Observable observable, int propertyId) {
                 Movie movie = mMovieObservable.get();
                 if(movie != null) {
                     title.set(movie.getTitle());
                     rating.set(movie.getRating());
                     notes.set(movie.getNotes());
                     posterUrl.set(movie.getPosterUrl());
-
+                    timesWatched.set(movie.getTimesWatched());
                 } else {
                     title.set("No data");
                     rating.set(3f);
                     notes.set("");
                     posterUrl.set("");
+                    timesWatched.set(1);
                 }
             }
         });
@@ -56,6 +59,11 @@ public abstract class MovieViewModel extends ViewModel {
                 mMovieObservable.set(movie);
             }
         });
+    }
+
+    public void updateMovie() {
+        Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get(), posterUrl.get(), timesWatched.get());
+        mMoviesRepository.saveMovie(newMovie);
     }
 
     protected String getMovieId() {

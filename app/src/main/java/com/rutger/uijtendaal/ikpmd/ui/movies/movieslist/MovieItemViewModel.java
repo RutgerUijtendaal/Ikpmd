@@ -7,12 +7,10 @@ import com.rutger.uijtendaal.ikpmd.viewmodel.MovieViewModel;
 
 import java.lang.ref.WeakReference;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 public class MovieItemViewModel extends MovieViewModel {
 
-    @Nullable
     private WeakReference<MovieItemNavigator> mNavigator;
 
     @Inject

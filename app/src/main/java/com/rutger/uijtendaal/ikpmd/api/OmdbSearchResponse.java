@@ -13,8 +13,8 @@ import java.util.List;
  *          {OmdbMovie],
  *          {OmdbMovie}
  *          ],
- * "totalResults" :   ,
- * "Response" :  boolean if response has succesful
+ * "totalResults" : number of matches found,
+ * "Response" :  boolean if response has successful
  *
  */
 public class OmdbSearchResponse {

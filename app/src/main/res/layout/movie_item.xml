@@ -33,25 +33,43 @@
                 android:contentDescription="@null"
                 app:posterUrl="@{viewmodel.posterUrl}" />
 
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
+                android:id="@+id/title_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
-                android:layout_toEndOf="@id/poster"
-                android:layout_toRightOf="@id/poster"
-                android:maxLines="2"
-                android:singleLine="false"
-                android:text="@{viewmodel.title}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:layout_toEndOf="@id/poster">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:maxLines="2"
+                    android:singleLine="false"
+                    android:text="@{viewmodel.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/times_watched_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="@{String.format(@string/movie_details_times_watched, viewmodel.timesWatched)}"
+                    android:layout_gravity="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+
+            </LinearLayout>
 
             <RatingBar
                 android:id="@+id/add_movie_ratingBar"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_alignLeft="@id/title"
+                android:layout_toEndOf="@id/poster"
+                android:layout_below="@id/title_ll"
+                android:layout_gravity="center_vertical"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="@={viewmodel.rating}"

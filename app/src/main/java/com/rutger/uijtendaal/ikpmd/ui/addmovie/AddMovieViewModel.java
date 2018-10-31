@@ -1,9 +1,7 @@
 package com.rutger.uijtendaal.ikpmd.ui.addmovie;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
 
 import com.google.common.base.Strings;
 import com.rutger.uijtendaal.ikpmd.R;
@@ -32,7 +30,7 @@ public class AddMovieViewModel extends MovieViewModel {
 
     public void setNavigator(AddMovieNavigator navigator) { mAddMovieNavigator = navigator; }
 
-    public void init(String taskId) {
+    public void setAddOrEdit(String taskId) {
         if(taskId == null) {
             mIsEditTask = false;
             rating.set(3f);
@@ -49,14 +47,13 @@ public class AddMovieViewModel extends MovieViewModel {
         }
 
         if(mIsEditTask) {
-            Movie newMovie = new Movie(getMovieId(), title.get(), rating.get(), notes.get(), posterUrl.get());
-            mMoviesRepository.saveMovie(newMovie);
+            updateMovie();
             toastText.set("Movie Updated");
             mAddMovieNavigator.onMovieSaved();
             return;
         }
 
-        Movie movie = new Movie(title.get(), rating.get(), notes.get(), posterUrl.get());
+        Movie movie = new Movie(title.get(), rating.get(), notes.get(), posterUrl.get(), 1);
         mMoviesRepository.saveMovie(movie);
         toastText.set("Movie Added");
         mAddMovieNavigator.onMovieSaved();

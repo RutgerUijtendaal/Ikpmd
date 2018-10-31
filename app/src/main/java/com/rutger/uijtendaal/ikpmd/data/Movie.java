@@ -41,6 +41,10 @@ public final class Movie {
     @ColumnInfo(name="posterUrl")
     private final String mPosterUrl;
 
+    @NonNull
+    @ColumnInfo(name="timesWatched")
+    private final int mTimesWatched;
+
     /**
      * Constructor to create a movie with a new UUID.
      *
@@ -48,27 +52,20 @@ public final class Movie {
      * @param rating            length of the movie
      * @param notes              notes of the movie
      * @param posterUrl     url of the movie poster
+     * @param timesWatched  amount of times watched
      */
     @Ignore
-    public Movie(@NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl) {
-        this(UUID.randomUUID().toString(), title, rating, notes, posterUrl);
+    public Movie(@NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl, @NonNull int timesWatched) {
+        this(UUID.randomUUID().toString(), title, rating, notes, posterUrl, timesWatched);
     }
 
-    /**
-     * Constructor to create a new movie
-     *
-     * @param id                    id of the movie
-     * @param title              title of the movie
-     * @param rating            length of the movie
-     * @param notes              notes of the movie
-     * @param posterUrl     url of the movie poster
-     */
-    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl) {
+    public Movie(@NonNull String id, @NonNull String title, @NonNull float rating, @Nullable String notes, @Nullable String posterUrl, @NonNull int timesWatched) {
         mId = id;
         mTitle = title;
         mRating = rating;
         mNotes = notes;
         mPosterUrl = posterUrl;
+        mTimesWatched = timesWatched;
     }
 
     @NonNull
@@ -87,5 +84,8 @@ public final class Movie {
 
     @Nullable
     public String getPosterUrl() { return mPosterUrl; }
+
+    @NonNull
+    public int getTimesWatched() { return mTimesWatched; }
 
 }

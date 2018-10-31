@@ -24,5 +24,8 @@
     <string name="movie_details_title_text">Title</string>
     <string name="movie_details_rating_text">Rating</string>
     <string name="movie_details_notes_text">Notes</string>
+    <string name="movie_details_times_watched">Viewings: %d</string>
+    <string name="watched_on">Undo</string>
+    <string name="watched_off">Rewatched</string>
 
 </resources>

@@ -23,23 +23,19 @@ public class OmdbMovie {
     }
 
     public String getPosterUrl() {
-
         return posterUrl;
     }
 
     public String getImdbId() {
-
         return imdbId;
     }
 
     public String getYear() {
-
         return year;
     }
 
     public String getTitle() {
         return title;
-
     }
 
     @Override
