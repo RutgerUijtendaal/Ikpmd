@@ -9,6 +9,10 @@ import com.rutger.uijtendaal.ikpmd.data.Movie;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesDataSource;
 import com.rutger.uijtendaal.ikpmd.data.source.MoviesRepository;
 
+/**
+ * Base Viewmodel for a movie. Holds all the information about a single movie.
+ *
+ */
 public abstract class MovieViewModel extends ViewModel {
 
     public final ObservableField<String> title = new ObservableField<>();

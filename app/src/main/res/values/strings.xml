@@ -7,7 +7,6 @@
     <!--Add Movie-->
     <string name="text_ab_done">Done</string>
     <string name="title_activity_add_movie">Add Movie</string>
-    <string name="empty_movie_title">Movie Title can\'t be empty</string>
     <string name="notes_hint">Add additional thoughts here</string>
     <string name="title_hint">Title</string>
     <string name="add_movie_title_text">Title</string>
@@ -27,5 +26,11 @@
     <string name="movie_details_times_watched">Viewings: %d</string>
     <string name="watched_on">Undo</string>
     <string name="watched_off">Rewatched</string>
+
+    <!--Toast Texts-->
+    <string name="toast_movie_updated">Movie Updated</string>
+    <string name="toast_movie_added">Movie Added</string>
+    <string name="toast_movie_title_missing">Movie Title can\'t be empty</string>
+    <string name="toast_movie_selected">%s Selected</string>
 
 </resources>

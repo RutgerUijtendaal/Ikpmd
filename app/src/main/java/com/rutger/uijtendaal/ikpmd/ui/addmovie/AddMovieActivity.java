@@ -39,6 +39,8 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
         mAddMovieViewModel = ViewModelProviders.of(this, mViewModelFactory).get(AddMovieViewModel.class);
         mAddMovieViewModel.setNavigator(this);
 
+        // Check if the intent has a movieId. If it does we're editing a movie and load the
+        // movie into the ViewModel. The title of the Activity also changes based on this.
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             mAddMovieViewModel.setAddOrEdit(null);
@@ -91,7 +93,6 @@ public class AddMovieActivity extends DaggerAppCompatActivity implements AddMovi
 
     @Override
     public void onMovieSaved() {
-        Log.d(TAG, "onMovieSaved");
         setResult(RESULT_OK);
         onBackPressed();
         finish();

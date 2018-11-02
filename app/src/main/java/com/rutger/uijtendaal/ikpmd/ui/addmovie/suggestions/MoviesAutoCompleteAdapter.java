@@ -82,7 +82,6 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
                     Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(constraint.toString());
                     try {
                         // Filters run on worker thread so we can .execute() instead of waiting for a callback response
-                        Log.d(TAG, "Register filter");
                         Response<OmdbSearchResponse> response = call.execute();
                         OmdbSearchResponse result = response.body();
                         if(result.getResponse()){
@@ -110,32 +109,5 @@ public class MoviesAutoCompleteAdapter extends BaseAdapter implements Filterable
             }
         };
         return filter;
-    }
-
-    public List<OmdbMovie> getSuggestions(String query) {
-        Call<OmdbSearchResponse> call = mOmdbService.searchSuggestions(query);
-
-        final List<OmdbMovie> suggestions = new ArrayList<>(0);
-        Log.d(TAG, "Success Response");
-
-        call.enqueue(new Callback<OmdbSearchResponse>() {
-            @Override
-            public void onResponse(Call<OmdbSearchResponse> call, Response<OmdbSearchResponse> response) {
-                OmdbSearchResponse result = response.body();
-                Log.d(TAG, "Success Response");
-                if(result.getResponse()) {
-                    for(OmdbMovie r: result.getSearch()) {
-                        suggestions.add(r);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<OmdbSearchResponse> call, Throwable t) {
-                Log.e(TAG, "error in getting remote data" + t.getMessage());
-            }
-        });
-
-        return suggestions;
     }
 }

@@ -46,15 +46,6 @@ public interface MoviesDao {
     void insertMovie(Movie movie);
 
     /**
-     * Update a movie
-     *
-     * @param movie movie to update
-     * @return number of movies updated
-     */
-    @Update
-    int updateMovie(Movie movie);
-
-    /**
      * Delete a movie by id
      *
      * @param movieId id of movie to delete

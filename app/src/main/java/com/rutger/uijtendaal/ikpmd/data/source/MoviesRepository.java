@@ -22,15 +22,11 @@ public class MoviesRepository implements MoviesDataSource {
 
     private static final String TAG = MoviesRepository.class.getName();
 
-    private final MoviesDao mMoviesDao;
-    private final AppExecutors mAppExecutors;
     private final MoviesRemoteFb mMoviesRemoteFb;
     private final MoviesLocalDs mMoviesLocalDs;
 
     @Inject
-    MoviesRepository(MoviesDao moviesDao, AppExecutors appExecutors, MoviesRemoteFb moviesRemoteFb, MoviesLocalDs moviesLocalDs) {
-        mMoviesDao = moviesDao;
-        mAppExecutors = appExecutors;
+    MoviesRepository(MoviesRemoteFb moviesRemoteFb, MoviesLocalDs moviesLocalDs) {
         mMoviesRemoteFb = moviesRemoteFb;
         mMoviesLocalDs = moviesLocalDs;
     }

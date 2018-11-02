@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 /**
  * Executor that runs a task on a new background thread.
  *
- * Taken from example project at: https://github.com/googlesamples/android-architecture/tree/.
+ * From: https://github.com/googlesamples/android-architecture/tree/.
  */
 public class DiskIOThreadExecutor implements Executor {
 

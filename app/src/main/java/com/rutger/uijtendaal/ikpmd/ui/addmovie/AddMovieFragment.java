@@ -86,7 +86,8 @@ public class  AddMovieFragment extends DaggerFragment {
         mToastCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                Toast toast = Toast.makeText(getView().getContext(), mAddMovieViewModel.getToastText(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getView().getContext(),
+                        mAddMovieViewModel.getToastText(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         };
@@ -101,11 +102,12 @@ public class  AddMovieFragment extends DaggerFragment {
         new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.d(TAG, "on click ran");
-                mAddMovieViewModel.setTitle(((OmdbMovie) adapterView.getItemAtPosition(position)).getTitle());
-                mAddMovieViewModel.setPosterUrl(((OmdbMovie) adapterView.getItemAtPosition(position)).getPosterUrl());
+                String movieTitle = ((OmdbMovie) adapterView.getItemAtPosition(position)).getTitle();
+                String posterUrl = ((OmdbMovie) adapterView.getItemAtPosition(position)).getPosterUrl();
+                mAddMovieViewModel.setTitle(movieTitle);
+                mAddMovieViewModel.setPosterUrl(posterUrl);
+                mAddMovieViewModel.toastText.set(getString(R.string.toast_movie_selected, movieTitle));
             }
         };
-
 
 }

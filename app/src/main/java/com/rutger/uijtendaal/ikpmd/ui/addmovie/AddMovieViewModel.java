@@ -42,20 +42,21 @@ public class AddMovieViewModel extends MovieViewModel {
 
     public void saveMovie() {
         if(Strings.isNullOrEmpty(title.get())) {
-            toastText.set(mContext.getString(R.string.empty_movie_title));
+            toastText.set(mContext.getString(R.string.toast_movie_title_missing));
             return;
         }
 
         if(mIsEditTask) {
             updateMovie();
-            toastText.set("Movie Updated");
+            // String resources somehow end up as Ints here. Have to hardcode the text.
+            toastText.set(mContext.getString(R.string.toast_movie_updated));
             mAddMovieNavigator.onMovieSaved();
             return;
         }
 
         Movie movie = new Movie(title.get(), rating.get(), notes.get(), posterUrl.get(), 1);
         mMoviesRepository.saveMovie(movie);
-        toastText.set("Movie Added");
+        toastText.set(mContext.getString(R.string.toast_movie_added));
         mAddMovieNavigator.onMovieSaved();
 
     }

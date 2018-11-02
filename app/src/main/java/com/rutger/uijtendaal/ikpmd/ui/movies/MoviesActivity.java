@@ -11,7 +11,6 @@ import android.util.Log;
 import com.rutger.uijtendaal.ikpmd.R;
 import com.rutger.uijtendaal.ikpmd.ui.addmovie.AddMovieActivity;
 import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsActivity;
-import com.rutger.uijtendaal.ikpmd.ui.moviedetails.MovieDetailsFragment;
 import com.rutger.uijtendaal.ikpmd.ui.movies.movieslist.MovieItemNavigator;
 
 import javax.inject.Inject;

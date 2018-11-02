@@ -14,10 +14,6 @@ import java.util.List;
  */
 public interface MoviesDataSource {
 
-//    LiveData<List<Movie>> getMovies();
-//
-//    LiveData<Movie> getMovie(String movieId);
-
     interface LoadMoviesCallback {
 
         void onMoviesLoaded(List<Movie> movies);
